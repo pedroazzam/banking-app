@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+	integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<table style="width: 100%;">
+			<tr>
+				<td rowspan="2">
+					<h1>API CONNECT</h1>
+				</td>
+				<td>
+					<div th:if="${user.getFullName() != null}" align="right">
+						<label th:text="'Logged in as ' + ${user.getFullName()}"></label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+					<div th:if="${user.getFullName() != null}" align="right">
+						<form action="#" th:action="@{/api/logout-browser}" th:object="${user}"
+							method="POST">
+							<button style="width: 35%" type="submit"
+								class="btn btn-outline-secondary btn-sm">LogOut</button>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<hr>
+		<div th:if="${user.getFullName() == null}">
+			<div th:if="${loginErrorCheck == true}" align="center">
+				<label style="color: red">Access denied! Please try again or
+					SignUp.</label>
+			</div>
+			<form action="#" th:action="@{/api/login-browser-check}"
+				th:object="${user}" method="POST">
+				<div align="center" style="width: 100%">
+					<h3>LogIn</h3>
+					<input type="email" th:field="*{email}"
+						class="form-control mb-4 col-4" placeholder="Email" /> <input
+						type="password" th:field="*{password}"
+						class="form-control mb-4 col-4" placeholder="Password" />
+
+					<div align="center">
+						<button style="width: 30%" type="submit" class="btn btn-dark">
+							LogIn</button>
+					</div>
+				</div>
+			</form>
+			<div align="center">or</div>
+			<div align="center">
+				<form action="#" th:action="@{/api/signup-browser}" th:object="${user}"
+					method="POST">
+					<button style="width: 30%" type="submit" class="btn btn-secondary">Sign
+						Up</button>
+				</form>
+			</div>
+		</div>
+		<div th:unless="${user.getFullName() == null}">
+			<div align="center">
+				<form action="#" th:action="@{/swagger-ui.html#/client45controller}" th:object="${user}"
+					method="GET">
+					<p>
+						<b><label style="color: black;">Your access to API
+								Methods is now available!</label></b>
+					</p>
+					<button style="width: 30%" type="submit" class="btn btn-warning">API
+						METHODS</button>
+				</form>
+			</div>
+		</div>
+		<hr>
+	</div>
+	<footer>
+		<!-- this is footer -->
+	</footer>
+</body>
+</html>

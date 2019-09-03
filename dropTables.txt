@@ -1,0 +1,5 @@
+drop table tb_account cascade;
+drop table tb_client cascade;
+drop table tb_secretkey cascade;
+drop table tb_transaction cascade;
+\d
